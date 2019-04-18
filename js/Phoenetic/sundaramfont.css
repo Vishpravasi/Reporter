@@ -1,0 +1,14 @@
+﻿@font-face {
+ font-family: MyCustomFont;
+ src: url('../fonts/Uni_Ila.Sundaram-01.eot') /* TTF file for CSS3 browsers */
+}
+@font-face {
+ font-family: MyCustomFont;
+ src: url('../fonts/Uni Ila.Sundaram-01.ttf') /* TTF file for CSS3 browsers */
+}
+
+
+.customfont
+{
+    font-family: MyCustomFont;
+}

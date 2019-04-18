@@ -1,0 +1,857 @@
+﻿<!DOCTYPE html>
+<html>
+
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Story Editor</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">    
+    <!-- Gritter -->
+    <link href="js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+	<link href="css/fileinput.css" rel="stylesheet">
+	<link href="css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
+	<link href="css/theme.css" rel="stylesheet">
+    <link href="alert/Css/alert.css" rel="stylesheet" />
+    <link href="alert/Css/theme.css" rel="stylesheet" />
+		<style>
+		    @media (max-width: 479px) {
+		        .view1 {
+		            margin-left: 16px;
+		        }
+
+		        .navbar-top-links .dropdown-alerts {
+		            margin-left: -148px !important;
+		        }
+		    }
+            .switch {
+                position: relative;
+                display: inline-block;
+                width: 60px;
+                height: 34px;
+            }
+
+            .slider {
+                position: absolute;
+                cursor: pointer;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: #ccc;
+                -webkit-transition: .4s;
+                transition: .4s;
+            }
+
+                .slider:before {
+                    position: absolute;
+                    content: "";
+                    height: 26px;
+                    width: 26px;
+                    left: 4px;
+                    bottom: 4px;
+                    background-color: white;
+                    -webkit-transition: .4s;
+                    transition: .4s;
+                }
+
+            input:checked + .slider {
+                background-color: #2196F3;
+            }
+
+
+                input:checked + .slider:before {
+                    -webkit-transform: translateX(26px);
+                    -ms-transform: translateX(26px);
+                    transform: translateX(26px);
+                }
+
+            /* Rounded sliders */
+            .slider.round {
+                border-radius: 34px;
+            }
+
+                .slider.round:before {
+                    border-radius: 50%;
+                }
+		</style>
+</head>
+
+<body>
+    <div id="wrapper">
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element"> <span>
+                           <img alt="image" src="img/tamil_logo.png" style=" background: #fff; width: 100%;">
+                             </span>
+                            
+                        </div>
+                        <div class="logo-element">
+                            <img alt="image" src="img/logo_mini.png" style="width: 100%;">
+                        </div>
+                    </li>
+					<!--<li>
+                        <a href="#"><i class="fa fa-user" style="background: #ccc; padding: 5px 7px;border-radius: 45px;"></i> <span class="nav-label">Graphs</span><span class="fa arrow" style="line-height: 25px;"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="#"><span style="margin-right: 10px;">MP</span> My Profile</a></li>
+                            <li><a href="#"><span style="margin-right: 13px;">EP</span> Edit Profile</a></li>   
+                            <li><a href="#"><span style="margin-right: 22px;">S</span> Settings</a></li>                           
+                        </ul>
+                    </li>-->
+                   
+                    <li id="linkToEditor" class="active">
+                        <a href="ArticleEditor.html"><i class="fa fa-edit"></i> <span class="nav-label">Article Editor</span></a>
+                    </li>
+                     <li>
+                        <a href="ArticleView.html"><i class="fa fa-th-large"></i> <span class="nav-label">Article View</span> </a>                      
+                    </li>
+                    <li>
+                        <a href="Wirefeeds.html"><i class="fa fa-th-large"></i> <span class="nav-label">Wire Feeds</span> </a>                      
+                    </li>
+                    <li>
+                        <a href="ChangePassword.html"><i class="fa fa-edit"></i> <span class="nav-label">Change Password</span> </a>                      
+                    </li>
+                    <li>
+                        <a href="ContributorMaster.html"><i class="fa fa-edit"></i> <span class="nav-label">Contributor Master</span> </a>                      
+                    </li>
+                    <li>
+                        <a href="MyStories.html"><i class="fa fa-edit"></i> <span class="nav-label">View My Stories</span> </a>                      
+                    </li>
+                    <li>
+                        <a href="VersionView.html"><i class="fa fa-edit"></i> <span class="nav-label">Story Versions</span> </a>                      
+                        </li>
+                     <li>
+                        <a href="login.html"><i class="fa fa-sign-out"></i> <span class="nav-label">Logout</span></a>
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="white-bg dashbard-1" style="padding: 0 33px;">
+        <div class="row border-bottom">
+        <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-ellipsis-v"></i> </a>
+            <a class="navbar-brand" href="#pablo" style="line-height: 39px;">Editor<div class="ripple-container"></div></a>
+        </div>
+            <ul class="nav navbar-top-links navbar-right" >
+                <li>
+                    <input type="text" value="" class="form-control" placeholder="தேடல்..." style="width: 165px;float: left;">
+                    <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                    <i class="fa fa-search"></i>
+                     <div class="ripple-container"></div>
+                     </button>
+                       
+                </li>
+              <!--  <li class="dropdown" style="margin-left: 13px;">
+                    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                        <i class="fa fa-envelope"></i>  
+                    </a>
+                  
+                </li>-->
+                <li class="dropdown">
+                    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                        <i class="fa fa-bell"></i><span class="label label-danger">8</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-alerts">
+                        <li>
+                            <a href="mailbox.html">
+                                <div>
+                                    <i class="fa fa-envelope fa-fw"></i> You have 16 messages
+                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="profile.html">
+                                <div>
+                                    <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                                    <span class="pull-right text-muted small">12 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="grid_options.html">
+                                <div>
+                                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <div class="text-center link-block">
+                                <a href="notifications.html">
+                                    <strong>See All Alerts</strong>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+				<li class="dropdown">
+                    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user"></i> <span>Hi  <span id="LoginUserName"> </span></span>
+                    </a>
+                  
+                </li>
+
+               
+            
+            </ul>
+
+        </nav>
+        </div>
+		<div class="row" id="MainDiv" style="padding-bottom: 28px;">
+			<div class="col-md-12" style="margin-top: 22px;">
+				
+				<fieldset>    	
+					<legend class="clsStyGpname">Story Editor</legend><span style="display:none;" id="tmpID"></span>   
+					<div class="form-horizontal" style="padding-top: 17px;">
+						<div class="col-md-6">
+							<div style="display:none" class="form-group checkFld" id="data_2"><label class="col-sm-3 control-label">Date : <sub style="
+    top: -4px;
+    color: red;
+    font-size: 11px;
+    padding-right: 3px;
+">*</sub></label>
+
+                                    <div class="col-sm-9" >  
+										<div class="input-group date">
+											<span class="input-group-addon">
+												<i class="fa fa-calendar"></i>
+											</span>
+											<input readonly="true"  type="text" id="txtIssuedate" class="form-control mandatory" >
+										</div>
+									</div>
+                            </div>
+                            <div class="form-group checkFld">
+								<label class="col-sm-3 control-label"><span class="ErrLab">Product</span> :<sub style="
+    top: -4px;
+    color: red;
+    font-size: 11px;
+    padding-right: 3px;
+">*</sub></label>
+                                    <div class="col-sm-9">
+										<select id="ddProduct" data-live-search="true" class="form-control selectpicker mandatory">
+																				
+										</select>									
+									</div>
+                            </div>							
+							<div class="form-group checkFld">
+								<label class="col-sm-3 control-label"><span class="ErrLab">Zone</span> :<sub style="
+    top: -4px;
+    color: red;
+    font-size: 11px;
+    padding-right: 3px;
+">*</sub></label>
+                                    <div class="col-sm-9">
+										<select id="ddZone" data-live-search="true" class="form-control selectpicker mandatory">
+																				
+										</select>									
+									</div>
+                            </div>
+
+                            <div id="divAssignStory" class="form-group checkFld">
+								<label class="col-sm-3 control-label"><span class="ErrLab">Story To</span> :<sub id="strAssgnMadr" style="
+    top: -4px;
+    color: red;
+    font-size: 11px;
+    padding-right: 3px;
+">*</sub></label>
+                                    <div class="col-sm-9">
+										<select id="ddlAssignUser" data-live-search="true" class="form-control selectpicker mandatory">
+																				
+										</select>									
+									</div>
+                            </div>
+
+                             <div  class="form-group checkFld">
+								<label class="col-sm-3 control-label"><span class="ErrLab">Quot Story</span> :<sub id="Sub1" style="
+    top: -4px;
+    color: red;
+    font-size: 11px;
+    padding-right: 3px;
+"></sub></label>
+                                    <div class="col-sm-2">
+										<input type="checkbox" id="chkquot" value="Quot Story"/>						
+									</div>
+                                    <div class="col-sm-3">
+										<input type="checkbox" id="isContriDetails" value="Contributorstr"/> Contributor Story
+									</div>
+                                    <div class="col-sm-2">
+										<input type="checkbox" checked="checked" id="isPrint" value="Quot Story"/> Print
+									</div>
+                                    <div class="col-sm-2">
+										<input type="checkbox" id="isWeb" value="Quot Story"/> Web
+									</div>
+                            </div>
+
+						</div>
+						<div class="col-md-6">
+							<div class="form-group checkFld">
+								<label class="col-sm-3 control-label"><span class="ErrLab">Layout Desk</span> :<sub style="
+    top: -4px;
+    color: red;
+    font-size: 11px;
+    padding-right: 3px;
+">*</sub></label>
+                                    <div class="col-sm-9">
+										<select id="ddLayoutDesk" data-live-search="true" class="form-control selectpicker mandatory">
+											
+										</select>									
+									</div>
+                            </div>
+							<div class="form-group checkFld">
+								<label class="col-sm-3 control-label"><span class="ErrLab">Type</span> :<sub style="
+    top: -4px;
+    color: red;
+    font-size: 11px;
+    padding-right: 3px;
+">*</sub></label>
+                                    <div class="col-sm-9">
+										<select  id="ddArticleView" data-live-search="true" class="form-control selectpicker mandatory">
+											
+											<option value="RE">Reporters</option>
+											<option value="PTI">PTI</option>	
+											<option value="UNI">UNI</option>	
+											
+										</select>									
+									</div>
+                            </div>
+							<div class="form-group checkFld">
+								<label class="col-sm-3 control-label"><span class="ErrLab">Page Name</span> :<sub style="
+    top: -4px;
+    color: red;
+    font-size: 11px;
+    padding-right: 3px;
+">*</sub></label>
+                                    <div class="col-sm-9">
+										<select id="ddPageNo" data-live-search="true" class="form-control selectpicker mandatory">
+												
+										</select>									
+									</div>
+                            </div>
+						</div>
+								
+					</div>
+				</fieldset>				
+				
+				<div class="clearfix"></div>
+
+        </div>
+      	<div class="col-md-12" style="margin-top: 22px;">
+				
+				<fieldset>    	
+					
+					<div class="form-horizontal" style="padding-top: 17px;">
+                                        <div class="row" style="margin-left: 71px !important; margin-bottom: 25px;">
+                                            <div class="col-sm-4">
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" id="Chek" type="radio" name="exampleRadios" value="option2" checked="true">
+                                                        Content & Image Story
+                                                  <span class="circle">
+                                                      <span class="check"></span>
+                                                  </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-sm-4">
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" id="ChekLN" type="radio" name="exampleRadios" value="option1">
+                                                        Content Story
+                                                  <span class="circle">
+                                                      <span class="check"></span>
+                                                  </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" id="ChekSQ" type="radio" name="exampleRadios" value="option1">
+                                                        Image Story
+                                                  <span class="circle">
+                                                      <span class="check"></span>
+                                                  </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group ">
+                                                <label class="col-sm-2 control-label">
+                                                    <span class="ErrLab">Story Name</span> :<sub class="manCnt1" style="
+    top: -4px;
+    color: red;
+    font-size: 11px;
+    padding-right: 3px;
+">*</sub>
+
+
+                                                </label>
+
+                                                <div class="col-sm-10"><input type="text" maxlength="400" id="txtStoryName" class="form-control manCntTxtShould mandatory" /></div>
+                                            </div>
+                                            <div id="divContriOptions" style="display:none" class="form-group ">
+                                                <label class="col-sm-2 control-label">
+                                                    <span class="ErrLab">Contributor Name</span> :<sub id="Sub5" class="manCnt" style="
+    top: -4px;
+    color: red;
+    font-size: 11px;
+    padding-right: 3px;
+">*</sub>
+                                                </label>
+
+                                                <div class="col-sm-8">
+
+                                                    <select id="txtContriName" data-live-search="true" class="form-control selectpicker"></select>
+                                                    <!--<input type="text" maxlength="400" id="txtContriName" class="form-control manCntTxtShould " />-->
+
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <button class="btn btn btn-primary view1" id="btnAddNew" style="float: left;margin-right: 8px">Add New</button>
+                                                </div>
+                                            </div>
+                                            <div class="ChekLN">
+                                                <div class="form-group ">
+                                                    <label id="lblHeadKicker" class="col-sm-2 control-label">
+
+                                                    </label>
+
+                                                    <div class="col-sm-10"><input type="text" maxlength="400" id="txtHeadKicker" class="form-control "></div>
+                                                </div>
+
+                                                <div class="form-group checkFld">
+                                                    <label class="col-sm-2 control-label">
+                                                        <span class="ErrLab">Head</span> :<sub class="manCnt" id="HeadMadr" style="
+    top: -4px;
+    color: red;
+    font-size: 11px;
+    padding-right: 3px;
+">*</sub>
+                                                    </label>
+
+                                                    <div class="col-sm-10"><input type="text" maxlength="400" id="txtHead" class="form-control manCntTxt mandatory"></div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label">Head Deck :</label>
+                                                    <div class="col-sm-10"><input type="text" maxlength="400" id="txtHeadDeck" class="form-control"></div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label">
+                                                        <span class="ErrLab">ByLine</span> :<sub id="byLinemat" class="manCnt" style="
+    top: -4px;
+    color: red;
+    font-size: 11px;
+    padding-right: 3px;
+">*</sub>
+                                                    </label>
+                                                    <div class="col-sm-10"><input type="text" maxlength="400" id="txtByLine" class="form-control"></div>
+                                                </div>
+                                                <div class="form-group checkFld">
+                                                    <label class="col-sm-2 control-label">
+                                                        <span class="ErrLab">DateLine</span> :     <sub id="DatelineMadr" class="manCnt" style="
+    top: -4px;
+    color: red;
+    font-size: 11px;
+    padding-right: 3px;
+">*</sub>
+                                                    </label>
+                                                    <div class="col-sm-10"><input type="text" maxlength="400" id="txtDateLine" class="form-control manCntTxt mandatory"></div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label">Keywords :</label>
+                                                    <div class="col-sm-10"><input type="text" maxlength="400" id="txtKWrd" class="form-control"></div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label">Description :</label>
+                                                    <div class="col-sm-10"><input type="text" maxlength="400" id="txtDesc" class="form-control"></div>
+                                                </div>
+                                                <div class="checkFld">
+                                                    <div class="form-group  ">
+                                                        <label class="col-sm-2 control-label">
+                                                            <span class="ErrLab">Content </span><sub class="manCnt" style="
+    top: -4px;
+    color: red;
+    font-size: 11px;
+    padding-right: 3px;
+">*</sub>:
+                                                        </label>  <a class="" id="btn_Clear" style="float: left;margin-left: 563px;font-size: 25px;" data-toggle="modal" data-target="#myModal">Translate</a>
+                                                        <button class="btn btn btn-primary" id="btnRemove" style="float: right;margin-right: 13px;" "=" ">Remove Blank Line</button>
+                                                    </div>
+                                                    <span id="wordCntjj" style="
+    color: #16629e;
+">Word Count :</span>
+                                                    <span id="wordCnt">0</span>
+                                                    <textarea class="form-control manCntTxt mandatory" placeholder="Type Your Content" id="code_preview0" name="" style="border: 1px solid rgb(204, 204, 204); background-image: none; height: 300px !important; line-height: 1.5em; font-family: Arial, Helvetica, sans-serif; font-size: 16px;font-weight:bold;"></textarea><br />
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2 control-label">Video URL (if any) :</label>
+                                                        <div class="col-sm-8"><input type="text" maxlength="400" id="txtYurl" placeholder="Copy and Paste link from browser" class="form-control"> </div><button class="btn btn btn-primary" id="btncheckurl" style="float: right;margin-right: 13px;" "=" ">Check</button>
+                                                    </div>
+
+                                                    <div id="divYoutubelink"></div>
+
+
+
+                                                </div>
+                                            </div>
+                                            <br /> <br />
+                                            <div class="form-group ChekSQ">
+                                                <div class="file-loading">
+                                                    <input id="file1" type="file" multiple data-overwrite-initial="false" data-min-file-count="1">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">Comments :</label>
+                                                <div class="col-sm-10"><textarea id="txtCmts" class="form-control"></textarea>   </div>
+                                            </div>
+                                        </div>
+						<div class="row">
+                                            <!--<label class="col-sm-2 col-form-label">Compose</label>-->
+
+                                            <div class="col-sm-12 ">
+                                                    <button class="btn btn btn-primary" id="btnApprove" style="float: right;margin-left: 11px;">Approve</button>&nbsp;
+                                                    <button class="btn btn btn-primary" id="btnSaveToDraft" style="float: right;margin-left: 11px;"">Save to Draft</button>&nbsp;
+                                                <button class="btn btn btn-primary" id="btnSave" style="float: right;margin-left: 11px;"">Save</button>&nbsp;                                                                                                
+                                                 <button class="btn btn btn-primary" id="btnUpdate" style="float: right;margin-left: 11px;"">Update</button>&nbsp;
+                                                 <button class="btn btn btn-primary" id="btnclose" style="float: right;margin-left: 11px;"">Close</button>&nbsp;
+                                              
+                                            </div>
+                                        </div>
+								
+					</div>
+				</fieldset>				
+				
+				<div class="clearfix"></div>
+
+        </div>
+   </div>
+    </div>
+          <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog" >
+    <div class="modal-dialog modal-lg" style=" width:90%;">
+    
+      <!-- Modal content-->
+        <div class="modal-content">            <div class="modal-header" style="background:#2894e9;color:#fff;">
+
+                <button type="button" id="clsModal" class="close" data-dismiss="modal">&times;</button>
+                <button id="toggle">Toggle</button>
+                <h4 class="modal-title">Provide Content</h4>
+            </div>
+                  <div class="modal-body" style=" height: 90%; overflow-y: auto; ">                                
+                    <div class="container-fluid main-container">
+                       <div class="row dynamic-columns">
+                          <div>
+                            <textarea class="col-sm-6 col" placeholder="English Content" id="txtEnglishCnt" name="" style="border: 1px solid rgb(204, 204, 204); background-image: none; height: 300px !important; line-height: 1.5em; font-family: Arial, Helvetica, sans-serif; font-size: 14px;"></textarea>
+                          </div>
+                           
+                          <div>
+                            <textarea class="col-sm-6 col" placeholder="Tamil Content" id="txtTamilCnt" name="" style="border: 1px solid rgb(204, 204, 204); background-image: none; height: 300px !important; line-height: 1.5em; font-family: Arial, Helvetica, sans-serif; font-size: 14px;"></textarea>
+                          </div>
+                       </div>
+                      <div class="modal-footer" style="padding: 9px 22px;">
+                        <button class="btn btn btn-primary" id="btnRemoveCnt" style="float: left;margin-left: 13px;margin-bottom:3px;">Remove Blank Line</button>
+                            &emsp;
+                       <button class="btn btn btn-primary" id="btnDone" style="float: right;margin-left: 11px;" ">Update</button>&nbsp;
+                      </div>
+                    </div>
+                  </div>
+ </div>
+    <!-- Mainly scripts -->
+
+    <!--Modal for Contributor -->
+
+     <div class="modal fade" id="myModalContributor" role="dialog" >
+    <div class="modal-dialog modal-lg" style=" width:50%;">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="background:#2894e9;color:#fff;">
+          <button type="button" id="Button1" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Contributor Details</h4>
+        </div>
+        <div class="modal-body" style=" height: 90%; overflow-y: auto; ">
+         
+         <div class="form-horizontal" style="padding-top: 17px;"> 				
+						<div class="col-md-12">
+                            <div class="form-group">
+								<label class="col-sm-3 control-label">Contributor Name : <sub id="Sub2" class="manCnt" style="
+    top: -4px;
+    color: red;
+    font-size: 11px;
+    padding-right: 3px;
+">*</sub></label>
+                                    <div class="col-sm-9">
+										<input id="txtContributorName" maxlength="200" type="text" class="form-control" />
+									</div>
+                            </div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Mobile Number :<sub id="Sub3" class="manCnt" style="
+    top: -4px;
+    color: red;
+    font-size: 11px;
+    padding-right: 3px;
+">*</sub></label>
+                                    <div class="col-sm-9">
+										<input type="text" maxlength="10" id="txtMobileNo" class="form-control" />
+									</div>
+                            </div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">City :<sub id="Sub4" class="manCnt" style="
+    top: -4px;
+    color: red;
+    font-size: 11px;
+    padding-right: 3px;
+">*</sub></label>
+                                    <div class="col-sm-9">
+										<!--<input type="password" readonly="readonly" id="txtCnfNewPwd" class="form-control" />-->
+                                        <select id="ddlCity"></select>
+									</div>
+                            </div>							                  
+
+                            <div class="form-group">
+								<label class="col-sm-3 control-label">Product Section :</label>
+                                    <div class="col-sm-9">
+										<!--<input type="text" readonly="readonly" id="Password1" class="form-control" />-->
+                                        <div id="lstProducts"></div>
+									</div>
+                            </div>	
+
+                            <div style="display:none" class="form-group">
+								<label class="col-sm-3 control-label">Active Status :<sub id="Sub6" class="manCnt" style="
+    top: -4px;
+    color: red;
+    font-size: 11px;
+    padding-right: 3px;
+">*</sub></label>
+                                    <div class="col-sm-9">
+										<!--<input type="text" readonly="readonly" id="Password1" class="form-control" />-->
+                                        <input type="checkbox" id="chkActiveSts" />
+									</div>
+                            </div>	
+
+						</div>
+						<div class="row">
+                                            <!--<label class="col-sm-2 col-form-label">Compose</label>-->
+                                            <div class="col-sm-12 ">
+                                            <label id="lblErrMsg" style="color:Red" class="col-sm-3 control-label"></label>
+                                            </div>
+                                           <!-- <div class="col-sm-6 ">
+                                                <button class="btn btn btn-primary view1" id="btnAddorSave" style="float: right;margin-right: 8px;">SAVE</button>
+                                            </div>-->                                            
+                                             
+                                        </div> </div>
+                           
+        </div>  
+		<div class="modal-footer" style="padding: 9px 22px;">
+           <button class="btn btn btn-primary" id="btnAddorSave" style="float: right;margin-left: 11px;"">SAVE</button>&nbsp;
+        </div>		
+      </div>
+      
+    </div>
+  </div>
+
+    <!-- End Contributor -->
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Flot -->
+    <script src="js/plugins/flot/jquery.flot.js"></script>
+    <script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="js/plugins/flot/jquery.flot.spline.js"></script>
+    <script src="js/plugins/flot/jquery.flot.resize.js"></script>
+    <script src="js/plugins/flot/jquery.flot.pie.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
+    <!-- Peity -->
+    <script src="js/plugins/peity/jquery.peity.min.js"></script>
+    <script src="js/demo/peity-demo.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="js/inspinia.js"></script> 
+        <script src="alert/alert.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+   <script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
+        <script src="examples/js/CommonURL.js"></script>
+        
+	<script>
+	    $('#data_2 .input-group.date').datepicker({
+
+	        todayBtn: "linked",
+	        keyboardNavigation: false,
+	        forceParse: false,
+	        autoclose: true,
+	        format: "yyyy-mm-dd"
+	    });
+	</script>
+    <!-- jQuery UI -->
+    <script src="js/plugins/jquery-ui/jquery-ui.min.js"></script>
+	 <script src="js/fileinput.js"></script>
+	 <script src="js/theme.js"></script>
+     <script src="examples/js/trim.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" type="text/javascript"></script>
+             <script src="examples/js/N_ArticleCompose.js"></script>
+	<script type="text/javascript">
+
+	    $(document).ready(function () {
+
+	    });
+
+</script>
+<script type="text/javascript">
+    $("#Chek").click(function () {
+        $(".ChekLN").show();
+        $(".ChekSQ").show();
+        $(".manCntTxt").addClass("mandatory");
+        $(".manCnt").show();
+        $("#code_preview0").val();
+
+        if (window.sessionStorage.strUserGroup == "EDTSUP") {            
+            $('#txtDateLine').removeClass('mandatory');
+            $('#DatelineMadr').text('');
+            $('#txtByLine').addClass('mandatory');
+            $('#byLinemat').text('*');
+        }
+
+
+        if ($('#chkquot').is(":checked")) {
+            $('#txtHead').removeClass('mandatory');
+            $('#HeadMadr').text('');
+            $('#txtDateLine').removeClass('mandatory');
+            $('#DatelineMadr').text('');
+        }
+
+    });
+
+    $("#ChekLN").click(function () {
+        $(".ChekLN").show();
+        $(".ChekSQ").hide();
+        $(".manCntTxt").addClass("mandatory");
+        $(".manCnt").show(); $("#code_preview0").val();
+
+        if (window.sessionStorage.strUserGroup == "EDTSUP") {
+            $('#txtDateLine').removeClass('mandatory');
+            $('#DatelineMadr').text('');
+            $('#txtByLine').addClass('mandatory');
+            $('#byLinemat').text('*');
+        }
+
+        if ($('#chkquot').is(":checked")) {
+            $('#txtHead').removeClass('mandatory');
+            $('#HeadMadr').text('');
+            $('#txtDateLine').removeClass('mandatory');
+            $('#DatelineMadr').text('');
+        }
+
+    });
+    $("#ChekSQ").click(function () {
+        $(".ChekLN").hide();
+        $(".ChekSQ").show();
+        $(".manCntTxt").removeClass("mandatory");
+        $(".manCnt").hide(); $("#code_preview0").val("");
+
+
+
+    }); $("#Chek").click(); $("#Chek").trigger("click");
+
+    $('#btnRemove').click(function () {
+        var xx = $('#code_preview0').val().replace(/\s*[\r\n]+\s*/g, '\n');
+        //.replace(/\n/g, '');
+        $('#code_preview0').val(xx);
+    });
+    $('#btnRemoveCnt').click(function () {
+        var xx = $('#txtEnglishCnt').val().replace(/\s*[\r\n]+\s*/g, '\n');
+        //.replace(/\n/g, '');
+        $('#txtEnglishCnt').val(xx);
+    });
+
+
+    $("#btnDone").click(function () {
+        if ($("#txtTamilCnt").val() != "" && $("#txtEnglishCnt").val() != "") {
+            $('#code_preview0').val($("#txtTamilCnt").val());
+            $("#clsModal").click();
+        }
+        else {
+            $.alert.open("warning", "Kindly provide content details to update");
+        }
+
+    });
+    $("#toggle").click(function () {
+        var columns_container = $(".dynamic-columns");
+        if (!columns_container.hasClass("expanded")) {
+            $(".dynamic-columns .col:first").removeClass("col-sm-6");
+            $(".dynamic-columns .col:first").addClass("col-sm-12 col");
+
+            $(".dynamic-columns .col:last-child").removeClass("col-sm-6");
+            $(".dynamic-columns .col:last-child").addClass("col-sm-12 col");
+            columns_container.toggleClass("expanded");
+        }
+        else {
+            $(".dynamic-columns .col:first").removeClass("col-sm-12");
+            $(".dynamic-columns .col:first").addClass("col-sm-6 col");
+            $(".dynamic-columns .col:last-child").removeClass("col-sm-12");
+            $(".dynamic-columns .col:last-child").addClass("col-sm-6 col");
+
+            columns_container.toggleClass("expanded");
+        }
+    });
+    /* Commented by nasurudeen for google auto trns (All editor and repoter are using nhm writer so milton, suresh and all repoter(Vengatesan sir) and editor,sub editor suggested disable the funty  )
+    // Load the Google Transliterate API
+    google.load("elements", "1", {
+        packages: "transliteration"
+    });
+
+    function onLoad() {
+        var options = {
+            sourceLanguage:
+                google.elements.transliteration.LanguageCode.ENGLISH,
+            destinationLanguage:
+                [google.elements.transliteration.LanguageCode.TAMIL],
+            shortcutKey: 'ctrl+g',
+            transliterationEnabled: true
+        };
+
+        // Create an instance on TransliterationControl with the required
+        // options.
+        var control =
+            new google.elements.transliteration.TransliterationControl(options);
+
+        // Enable transliteration in the textbox with id
+        // 'transliterateTextarea'.
+        control.makeTransliteratable(['code_preview0']);
+
+        control.makeTransliteratable(['txtTamilCnt']);
+
+        control.makeTransliteratable(['txtHead']);
+        control.makeTransliteratable(['txtHeadKicker']);
+
+        control.makeTransliteratable(['txtHeadDeck']);
+        control.makeTransliteratable(['txtByLine']);
+        control.makeTransliteratable(['txtDateLine']);
+        //  control.makeTransliteratable(['customFileCaption']);
+
+    }
+    google.setOnLoadCallback(onLoad);   */
+</script>
+</body>
+</html>
